@@ -7,6 +7,9 @@
 struct termios orig_termios;
 
 
+/*** defines ***/
+#define CTRL_KEY(k) ((k) & 0x1f)
+
 void die(const char *s) {
   perror(s);
   exit(1);
@@ -63,4 +66,4 @@ if (read(STDIN_FILENO, &c, 1) == -1 && errno != EAGAIN) die("read");
 
 
 
-// Turn off all output processing - kilo/02.enteringRawMode
+// Press Ctrl-Q to quit - kilo/03.rawInputAndOutput
