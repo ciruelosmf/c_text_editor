@@ -12,6 +12,8 @@ struct termios orig_termios;
 #define CTRL_KEY(k) ((k) & 0x1f)
 
 void die(const char *s) {
+  write(STDOUT_FILENO, "\x1b[2J", 4);
+  write(STDOUT_FILENO, "\x1b[H", 3);
   perror(s);
   exit(1);
 }
@@ -56,8 +58,18 @@ void editorProcessKeypress() {
   char c = editorReadKey();
   switch (c) {
     case CTRL_KEY('q'):
+      write(STDOUT_FILENO, "\x1b[2J", 4);
+  write(STDOUT_FILENO, "\x1b[H", 3);
       exit(0);
       break;
+  }
+}
+
+
+void editorDrawRows() {
+  int y;
+  for (y = 0; y < 24; y++) {
+    write(STDOUT_FILENO, "~\r\n", 3);
   }
 }
 
@@ -65,6 +77,9 @@ void editorProcessKeypress() {
 
 void editorRefreshScreen() {
   write(STDOUT_FILENO, "\x1b[2J", 4);
+  write(STDOUT_FILENO, "\x1b[H", 3);
+  editorDrawRows();
+  write(STDOUT_FILENO, "\x1b[H", 3);
 }
 
 
@@ -90,5 +105,5 @@ int main() {
 
 
 
-
-// Clear the screen - kilo/03.rawInputAndOutput
+// LAST STEP:
+// Tildes - kilo/03.rawInputAndOutput
