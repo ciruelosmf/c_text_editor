@@ -198,5 +198,5 @@ initEditor();
 
 
 
-// LAST    Step 29  :
+// LAST    Step 32  :
 // Window size, the hard way - kilo/03.rawInputAndOutput
